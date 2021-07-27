@@ -7,7 +7,7 @@ const getJSON = function(url) {
       if(xhr.readyState !== 4) return;
       if(xhr.status === 200 || xhr.status === 304) {
         resolve(xhr.responseText);
-      } esle {
+      } else {
         reject(new Error(xhr.responseText));
       }
     };
@@ -28,7 +28,7 @@ const getJSON = function(url) {
  *      300   请求成功吗，但是结果有多个选择
  *      301   永久性重定向
  *      302   临时性重定向
- *      303   请使用 get 来访问新地址获取资源
+ *      303   请使用 get 来访s问新地址获取资源
  *      304   无需再次传输请求内容，可以使用缓存的内容
  *    4XX 客户端错误状态码
  *      400   请求出现错误，比如请求头不对
