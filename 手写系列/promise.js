@@ -5,31 +5,29 @@ class myPromise {
         this.state = 'pending';
         this.value;
         this.reason;
+
+        let _resolve = (value) => {
+            if (this.state == 'pending') {
+                this.state = 'resolved';
+                this.value = value;
+                    this._onFulfilledCallbacks.forEach((callback) => callback(value));
+            }
+        }
+    
+        let _reject = (reason) => {
+            if (this.state == 'pending') {
+                this.state = 'rejected';
+                this.reason = reason;
+                    this._onRejectedCallbacks.forEach((callback) => callback(reason));
+            }
+        }
+
         try {
-            handle(this._resolve.bind(this), this._reject.bind(this));
-        } catch (e) {
-            this._reject(e);
+            handle(_resolve, _reject);
+        } catch (err) {
+            _reject(err);
         }
-    }
 
-    _resolve(value) {
-        if (this.state == 'pending') {
-            this.state = 'resolved';
-            this.value = value;
-            setTimeout(() => {
-                this._onFulfilledCallbacks.forEach((callback) => callback(value));
-            })
-        }
-    }
-
-    _reject(reason) {
-        if (this.state == 'pending') {
-            this.state = 'rejected';
-            this.reason = reason;
-            setTimeout(() => {
-                this._onRejectedCallbacks.forEach((callback) => callback(reason));
-            })
-        }
     }
 
     then(onFulfilled, onRejected) {
@@ -91,11 +89,18 @@ class myPromise {
 let p = new myPromise(function (resolve, reject) {
     setTimeout(() => {
         resolve(1);
-    }, 3000);
+    }, 1000);
 });
-// p.then(function(res) {
-//     console.log(res);
-// });
+p.then(function(res) {
+    console.log(res);
+    return new myPromise((resolve,reject) => {
+        setTimeout(() => {
+            resolve('2323')
+        }, 3000);
+    })
+}).then((res) => {
+    console.log(res);
+});
 
 
 myPromise.resolve = function(value){
@@ -204,4 +209,4 @@ const promises = [
 myPromise.any(promises).then(res => console.log(res));
 
 // finally()方法用来制定不管Promise对象最后状态如何，都会执行的操作
-Promise.finally()
+// Promise.finally()

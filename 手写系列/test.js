@@ -135,14 +135,37 @@ Function.prototype.call2 = function(context){
 }
 
 // bind
-Function.prototype.bind = function(context, args){
-    context = context || window;
-    context.fn = this;
-    let args = [...arguments];
+// Function.prototype.bind = function(context){
+//     context = context || window;
+//     context.fn = this;
+//     let args = [...arguments];
 
-    return function(){
-        let res = context.fn(...(args.slice(1).concat(...arguments)));
-        delete context.fn;
-        return res;
-    }
+//     return function(){
+//         let res = context.fn(...(args.slice(1).concat(...arguments)));
+//         delete context.fn;
+//         return res;
+//     }
+// }
+
+function quickSort(arr){
+    if (arr.length <= 1) {
+        return arr;
+    };
+
+    const midIndex = Math.floor(arr.length/2);
+    const valArr = arr.splice(midIndex, 1);
+    const midVal = valArr[0];
+    const left = [];
+    const right = [];
+    for(let val of arr){
+        if (val < midVal){
+            left.push(val)
+        } else {
+            right.push(val)
+        }
+    };
+    return quickSort(left).concat(midVal, quickSort(right));
 }
+let arr = [5,6,7,8,9,10,1,2,3,4];
+console.log(quickSort(arr));
+
