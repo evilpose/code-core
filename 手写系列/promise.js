@@ -8,13 +8,11 @@ class myPromise {
         try {
             handle(this._resolve.bind(this), this._reject.bind(this));
         } catch (e) {
-            console.log('here');
-            this._reject(e);        // ？
+            this._reject(e);
         }
     }
 
     _resolve(value) {
-        console.log('执行 _resolve 了');
         if (this.state == 'pending') {
             this.state = 'resolved';
             this.value = value;
@@ -25,7 +23,6 @@ class myPromise {
     }
 
     _reject(reason) {
-        console.log('执行 _reject 了');
         if (this.state == 'pending') {
             this.state = 'rejected';
             this.reason = reason;
@@ -43,7 +40,6 @@ class myPromise {
             const _onResolved = () => {
                 setTimeout(() => {
                     try {
-                        // onFulfilled(this.value);
                         let res = onFulfilled(this.value);
                         if (res instanceof myPromise) {
                             res.then(nextResolve, nextReject);
@@ -93,21 +89,119 @@ class myPromise {
 
 
 let p = new myPromise(function (resolve, reject) {
-    resolve(1);
-}).then(function(res) {
-    console.log(res);
+    setTimeout(() => {
+        resolve(1);
+    }, 3000);
 });
-
-// p.then(function (v) {
-//     console.log(v);
-//     return 2;
-// }).then(function (v) {
-//     console.log(v);
-//     return new myPromise(function (resolve, reject) {
-//         // setTimeout(function () {
-//             resolve(3);
-//         // }, 3000);
-//     });
-// }).then(function (v) {
-//     console.log(v);
+// p.then(function(res) {
+//     console.log(res);
 // });
+
+
+myPromise.resolve = function(value){
+    if (value instanceof Promise){
+        return value;
+    };
+    return new Promise(resolve => resolve(value));
+};
+
+myPromise.reject = function(reason){
+    return new Promise((resolve, reject) => reject(reason));
+};
+
+myPromise.all = function(promiseArr){
+    let index = 0, result = [];
+    return new Promise((resolve, reject) => {
+        promiseArr.forEach((p, i) => {
+            Promise.resolve(p).then(val => {
+                index++;
+                result[i] = val;
+                if(index === promiseArr.length) {
+                    resolve(result);
+                }
+            }).catch(reason => reject(reason))
+        })
+    })
+};
+
+let q = new myPromise(function (resolve, reject) {
+    setTimeout(() => {
+        resolve(10);
+    }, 1000);
+});
+// myPromise.all([p, q]).then(res => console.log(res));
+
+
+myPromise.race = function(promiseArr){
+    return new Promise((resolve, reject) => {
+        promiseArr.forEach(p => {
+            Promise.resolve(p).then(val => {
+                resolve(val)
+            }).catch(err => {
+                reject(err)
+            })
+        })
+    })
+};
+// myPromise.race([p, q]).then(res => console.log(res));
+
+
+myPromise.allSettled = function(promiseArr){
+    let result = [];
+
+    return new Promise((resolve, reject) => {
+        promiseArr.forEach(p => {
+            Promise.resolve(p).then(val => {
+                result.push({
+                    status: 'fulfilled',
+                    value: val
+                });
+                if (result.length === promiseArr.length) {
+                    resolve(result);
+                }
+            }).catch(err => {
+                result.push({
+                    statue: 'rejected',
+                    reason: err
+                });
+                if (result.length === promiseArr.length) {
+                    resolve(result);
+                }
+            })
+        })
+    })
+}
+
+
+// let r = Promise.reject('出错了');
+
+// myPromise.allSettled([p, r]).then(res => console.log(res));
+
+
+myPromise.any = function(promiseArr) {
+    let index = 0;
+    return new Promise((resolve, reject) => {
+        if(promiseArr.length === 0) return;
+        promiseArr.forEach((p, i) => {
+            Promise.resolve(p).then(val => {
+                resolve(val);
+            }, err => {
+                index++;
+                if (index === promiseArr.length) {
+                    reject(new AggregateError('All promises were rejected'));
+                }
+            })
+        })
+    })
+};
+
+const promises = [
+    Promise.reject('ERROR A'),
+    Promise.resolve('result A'),
+    Promise.resolve('result B'),
+]
+
+myPromise.any(promises).then(res => console.log(res));
+
+// finally()方法用来制定不管Promise对象最后状态如何，都会执行的操作
+Promise.finally()
