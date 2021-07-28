@@ -5,7 +5,7 @@ function shallowCopy(obj) {
 
   let newobj = obj instanceof Array ? [] : {};
   for(let key in obj) {
-    if (obj.hasOwnProtptype(key)) {
+    if (obj.hasOwnPrototype(key)) {
       newobj[key] = obj[key];
     }
   };
@@ -20,7 +20,7 @@ function deepClone(obj) {
   
   let newObj = obj instanceof Array ? [] : {};
   for(let key in obj) {
-    if (obj.hasOwnProtptype(key)) {
+    if (obj.hasOwnPrototype(key)) {
       newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key]
     }
   };
