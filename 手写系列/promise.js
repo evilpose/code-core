@@ -10,7 +10,7 @@ class myPromise {
             if (this.state == 'pending') {
                 this.state = 'resolved';
                 this.value = value;
-                    this._onFulfilledCallbacks.forEach((callback) => callback(value));
+                this._onFulfilledCallbacks.forEach((callback) => callback(value));
             }
         }
     
@@ -18,7 +18,7 @@ class myPromise {
             if (this.state == 'pending') {
                 this.state = 'rejected';
                 this.reason = reason;
-                    this._onRejectedCallbacks.forEach((callback) => callback(reason));
+                this._onRejectedCallbacks.forEach((callback) => callback(reason));
             }
         }
 
