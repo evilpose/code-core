@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div{
+      height: 400px;
+      width: 400px;
+      display: flex;
+      justify-content: space-between;
+    }
+    span:nth-child(1){
+      align-self: flex-start;
+    }
+    span:nth-child(2){
+      align-self: center;
+    }
+    span:nth-child(3){
+      align-self: flex-end;
+      flex-direction: column-reverse;
+    }
+  </style>
+</head>
+<body>
+  <!-- 
+
+    flex-directioon: row | row-reverse | column | column-reverse
+    flex-wrap: nowrap | wrap | wrap-reverse
+    flex-flow: <flex-direction> || <flex-wrap>  默认值为 row nowrap
+    justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly 
+    align-items: flex-start | flex-end | center | baseline | stretch
+    align-content: flex-start | flex-end | center | stretch | space-between | space-around
+
+    定义项目的属性
+    order: <integer>
+    flex-grow: <number>
+    flex-shrink: <number>
+    flex-basis: <length> | auto
+    flex: flex-grow flex-shrink flex-basis
+    align-self: auto | flex-start | flex-end | center | baseline | stretch
+
+   -->
+  <div>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+  </div>
+</body>
+</html>

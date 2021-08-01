@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .main{
+      width: 500px;
+      height: 500px;
+      display: grid;
+      /* place-content: center; */
+      /* place-items: center; */
+      background-color: rgb(247, 179, 167);
+    }
+    .main>div{
+      height: 200px;
+      width: 200px;
+      place-self: center;
+      background-color: rgb(160, 243, 202);
+    }
+  </style>
+</head>
+<body>
+  <!-- 
+    display: gird | inline-grid
+    grid-template-columns: <number> | repeat()  | minmax()  | auto  | [c1] 100px [c2] 1fr | 70% 30%
+        auto-fill 自动填充
+        repeat(2, 50%)  |  repeat(2, 100px 100px) | replace(auto-fill, 100px) | replace(1fr, 2fr, 150px)
+        minmax()  范围内
+    grid-template-rows
+      同上
+    grid-row-gap: 20px;
+    grid-columns-gap: 20px;
+    grid-gap: <grid-row-gap> <grid-column-gap>
+    grid-template-areas: 'a a a'
+                         'b b b'
+                         'c c c'
+    grid-auto-flow: column | row | column-dense | row-dense
+    justify-items: start | end | center| stretch
+    align-items: start | end | center | stretch
+    place-items: <align-items> <justify-items>
+    justify-content: start | end | center | stretch | space-around | space-evenal
+    align-conten: start | end | center | stretch | space-around | space-evenl
+    place-content: <align-content> <justify-content>
+    grid-auto-template
+    grid-auto-rows
+
+
+    grid-column-start: 网格线 | 网格线的名字 | span 跨越 数量
+    grid-column-end
+    grid-row-start
+    grid-row-end
+    grid-column: <start-line> / <end-line>
+    grid-row: <start-line> / <end-line>
+    grid-area: e | <row-start> / <column-start> / <row-end> / <column-end>
+    justify-self: start | end | center | stretch
+    align-self: 同上
+    place-self: <align-self> <justify-self>
+   -->
+
+   <div class="main">
+    <div></div>
+   </div>
+</body>
+</html>

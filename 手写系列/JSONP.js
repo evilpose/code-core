@@ -21,3 +21,9 @@ const jsonp = ({url, params, callbackName}) => {
     }
   })
 }
+
+// 后端返回的数据
+callbackName({
+  name: 'zs',
+  age: '18'
+})
