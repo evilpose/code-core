@@ -5,7 +5,7 @@ function shallowCopy(obj) {
 
   let newobj = obj instanceof Array ? [] : {};
   for(let key in obj) {
-    if (obj.hasOwnPrototype(key)) {
+    if (obj.hasOwnProperty(key)) {
       newobj[key] = obj[key];
     }
   };

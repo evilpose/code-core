@@ -24,29 +24,29 @@
 // var add = curry(dynamicAdd);
 // console.log(add(1,2));
 
-function curry(func){
-  var storeArg = [...arguments].slice(1);
+// function curry(func){
+//   var storeArg = [...arguments].slice(1);
 
-  var fn = function(){
-    console.log(...arguments);
-    storeArg.push(...arguments);
-    return fn;
-  }
+//   var fn = function(){
+//     console.log(...arguments);
+//     storeArg.push(...arguments);
+//     return fn;
+//   }
 
-  fn.toString = function(){
-    return func.apply(null, storeArg);
-  }
+//   fn.toString = function(){
+//     return func.apply(null, storeArg);
+//   }
 
-  return fn;
-}
-function dynamicAdd(){
-  return [...arguments].reduce((pre, curr) => {
-    return pre + curr;
-  }, 0)
-};
+//   return fn;
+// }
+// function dynamicAdd(){
+//   return [...arguments].reduce((pre, curr) => {
+//     return pre + curr;
+//   }, 0)
+// };
 
-var add = curry(dynamicAdd);
-console.log(add(1,2)(2)(10));
+// var add = curry(dynamicAdd);
+// console.log(add(1,2)(2)(10));
 
 // function add(){
 //   var storeArg = [...arguments];
@@ -63,6 +63,21 @@ console.log(add(1,2)(2)(10));
 //   return fn;
 // }
 
-// console.log(add(1));
-// console.log(add(1)(2));
-// add(1)(2)(3)
+console.log(add(1).toString());
+console.log(add(1)(2).toString());
+console.log(add(1,2)(2)(3).toString());
+
+function add(){
+    var store = [...arguments];
+
+    var fn = function() {
+        store.push(...arguments);
+        return fn;
+    }
+
+    fn.toString = function(){
+        return store.reduce((pre, cur) => pre + cur)
+    }
+
+    return fn
+}
