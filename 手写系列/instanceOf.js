@@ -8,3 +8,11 @@ function my_instanceOf(left, right) {
         proto = proto.__proto__
     }
 }
+
+
+proto = left.__proto__
+while(true){
+    if(proto.__proto__ == null) return false;
+    if(proto.__proto__ == right.prototype) return true;
+    proto = proto.__proto__;
+}

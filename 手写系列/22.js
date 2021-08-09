@@ -50,7 +50,20 @@ function selectSort(arr){
 
 // selectSort(arr);
 // console.log(arr);
-
+var forwordTraversal = function(root){
+  const res = [];
+  const handle = (root) => {
+      if (!root) {
+          return
+      }
+      res.push(root.val);
+      handle(root.left);
+      handle(root.right);
+  };
+  handle(root)
+  return res;
+}
+console.log(forwordTraversal(tree));
 
 class MyPromise{
   constructor(handle){
@@ -146,3 +159,5 @@ new MyPromise((resolve, reject) => {
 }).then((res) => {
   console.log(res);
 })
+
+

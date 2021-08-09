@@ -60,3 +60,53 @@ var endTraversal = function(root){
     return res;
 }
 console.log(endTraversal(tree));
+
+// 二叉树深度
+var maxDepth = function(root){
+    if(!root){
+        return 0;
+    }
+
+    let loop = (node, depth = 1) => {
+        if(!node){
+            return depth - 1
+        }
+        if(!node.left && !node.right){
+            return depth;
+        }
+        const leftDepth = loop(node.left, depth);
+        const rightDepth = loop(node.right, depth);
+        return Math.max(leftDepth, rightDepth);
+    }
+
+    return loop(root);
+}
+
+// 二叉树最近的公共祖先
+const lowestCommonAncestor = (root, q, p) => {
+    if(!root || root === p || root === q){ return root };
+    const left = lowestCommonAncestor(root.left, q, p);
+    const right = lowestCommonAncestor(root.right, q, p);
+    if(!left) return right;
+    if(!right) return left;
+    return root;
+}
+
+// 二叉树的右视图
+var rightSideView = function(root) {
+    //二叉树右视图 只需要把每一层最后一个节点存储到res数组
+      let res = [], queue = [];
+      queue.push(root);
+      while(queue.length&&root){
+          let length = queue.length;
+          while(length--){
+              node = queue.shift();
+              if(!length){
+                  res.push(node.val)
+              }
+              node.left&&queue.push(node.left)
+              node.right&&queue.push(node.right)
+          }
+      }
+      return res;
+};

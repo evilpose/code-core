@@ -101,3 +101,28 @@ Array.prototype.my_reduce = function(callback, initialValue) {
 }
 
 const my_reduce_sum = arr.my_reduce((pre, curr, index, array) => pre + curr);
+
+
+
+// [1,2,3] => [1,2,4]
+var plusOne = function(digits) {
+    let len = digits.length;
+    // 从后面往前遍历数组,判断9的情况
+    for(let i = len-1;i>=0;i--){
+        if(digits[i] == 9){
+            digits[i] = 0;
+        }else{
+            digits[i]++;
+            return digits;
+        }
+    }
+    // 如果全部都是9,建立新的数组
+    let newDigits = [1].concat(digits);
+    return newDigits;
+}
+  
+console.log('x-x-x-x-x-x-x-x-');
+console.log(plusOne([1,2,3]));
+console.log(plusOne([0,0,1]));
+console.log(plusOne([0,0,9]));
+console.log(plusOne([9,9,9]));

@@ -136,7 +136,7 @@ let q = new myPromise(function (resolve, reject) {
 });
 // myPromise.all([p, q]).then(res => console.log(res));
 
-
+// 哪个快出哪个，不管成功失败
 myPromise.race = function(promiseArr){
     return new Promise((resolve, reject) => {
         promiseArr.forEach(p => {
@@ -150,7 +150,7 @@ myPromise.race = function(promiseArr){
 };
 // myPromise.race([p, q]).then(res => console.log(res));
 
-
+// 返回所有的结果，不管成功失败
 myPromise.allSettled = function(promiseArr){
     let result = [];
 
@@ -182,7 +182,7 @@ myPromise.allSettled = function(promiseArr){
 
 // myPromise.allSettled([p, r]).then(res => console.log(res));
 
-
+// 只要其中的一个 promise 成功，就返回那个已经成功的 promise
 myPromise.any = function(promiseArr) {
     let index = 0;
     return new Promise((resolve, reject) => {
