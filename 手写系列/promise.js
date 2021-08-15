@@ -210,3 +210,11 @@ myPromise.any(promises).then(res => console.log(res));
 
 // finally()方法用来制定不管Promise对象最后状态如何，都会执行的操作
 // Promise.finally()
+
+myPromise.finally = function(callback) {
+    let P = this.constructor;
+    return this.then(
+        val => P.resolve(callback()).then(() => val),
+        reacon => P.resolve(callback()).then(() => { throw reacon })
+    )
+}
