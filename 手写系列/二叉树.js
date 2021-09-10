@@ -110,3 +110,22 @@ var rightSideView = function(root) {
       }
       return res;
 };
+
+// 二叉树中的最大路径和
+var maxPathSum = function(root) {
+    let ans = root.val
+    function dfs (node) {
+        if (!node) {
+            return 0
+        }
+        const { left, right, val } = node
+        const L = dfs(right)
+        const R = dfs(left)
+
+        ans = Math.max(ans, val + L + R, val + L, val + R, val)
+
+        return Math.max(val, val + Math.max(L, R))
+    }
+    dfs(root)
+    return ans
+};
